@@ -4,6 +4,7 @@
 # Ensure the script is run in the directory containing the zip files
 
 
+
 Get-ChildItem *.zip | ForEach-Object {
     $destination = "$($_.BaseName)"
     Expand-Archive -Path $_.FullName -DestinationPath $destination
