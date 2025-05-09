@@ -11,12 +11,11 @@ This guide helps you extract multiple `.zip` files at once using a simple PowerS
 Save the following script as `unzip-all.ps1`:
 
 ```powershell
-$destinationRoot = "$PWD\Extracted"
-
-Get-ChildItem -Filter *.zip | ForEach-Object {
-    $destination = Join-Path $destinationRoot $_.BaseName
-    Expand-Archive -Path $_.FullName -DestinationPath $destination -Force
+Get-ChildItem *.zip | ForEach-Object {
+    $destination = "$($_.BaseName)"
+    Expand-Archive -Path $_.FullName -DestinationPath $destination
 }
+
 ```
 
 > This script creates a folder named `Extracted` in your current directory and unzips each `.zip` into its own subfolder.
