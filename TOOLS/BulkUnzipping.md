@@ -98,4 +98,4 @@ Extracted/
 
 ## ❓ Need Help?
 
-If you run into issues, contact the script author or open an issue where this guide was provided.
+If you run into issues, contact me by opening an issue where this guide was provided.
