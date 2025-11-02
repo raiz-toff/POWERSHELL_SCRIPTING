@@ -1,0 +1,38 @@
+2025-08-19 16:31:27.142 | INFO     | __main__:main:104 - Heeeere we go!
+2025-08-19 16:31:27.147 | INFO     | __main__:main:687 - Counting how many input files we have ahead...
+2025-08-19 16:31:29.751 | INFO     | __main__:main:691 - Input files: 35763
+2025-08-19 16:31:29.751 | INFO     | __main__:main:693 - =====================
+2025-08-19 16:31:29.752 | INFO     | __main__:main:694 - Fixing files metadata and creation dates...
+2025-08-19 16:31:29.798 | DEBUG    | __main__:fix_metadata:605 - No correct DateTime in given exif
+2025-08-19 16:31:29.798 | DEBUG    | __main__:fix_metadata:606 - No exif for D:\DataGoogle\fOLDER\AllPhotos\$8_00 Nepal Print, Nepal Art Print, Watercolor.jpeg
+2025-08-19 16:32:24.816 | DEBUG    | __main__:find_json_for_file:359 - Couldn't open json file D:\DataGoogle\fOLDER\AllPhotos\user-generated-memory-titles.json
+2025-08-19 16:32:25.448 | DEBUG    | __main__:fix_metadata:619 - Couldn't find json for file: D:\DataGoogle\fOLDER\AllPhotos\$8_00 Nepal Print, Nepal Art Print, Watercolor.jpeg
+2025-08-19 16:32:25.448 | DEBUG    | __main__:fix_metadata:624 - Try copying folder meta as date for D:\DataGoogle\fOLDER\AllPhotos\$8_00 Nepal Print, Nepal Art Print, Watercolor.jpeg
+2025-08-19 16:32:28.293 | DEBUG    | __main__:get_date_from_folder_meta:374 - Couldn't pull datetime from album meta
+2025-08-19 16:32:28.293 | WARNING  | __main__:fix_metadata:641 - There was literally no option to set date on D:\DataGoogle\fOLDER\AllPhotos\$8_00 Nepal Print, Nepal Art Print, Watercolor.jpeg
+2025-08-19 16:32:28.321 | ERROR    | __main__:<module>:805 - WHHoopssiee! Looks like script crashed! This shouldn't happen, although it often does haha :P
+Most of the times, you should cut out the last printed file (it should be down there somehwere) to some other folder, and continue
+
+If this doesn't help, and it keeps doing this after many cut-outs, you can check out issues tab:
+https://github.com/TheLastGimbus/GooglePhotosTakeoutHelper/issues 
+to see if anyone has similar issue, or contact me other way:
+https://github.com/TheLastGimbus/GooglePhotosTakeoutHelper/blob/master/README.md#contacterrors 
+
+Traceback (most recent call last):
+
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+> File "C:\Users\7towa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\google_photos_takeout_helper\__main__.py", line 805, in <module>
+    main()
+  File "C:\Users\7towa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\google_photos_takeout_helper\__main__.py", line 698, in main
+    for_all_files_recursive(
+  File "C:\Users\7towa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\google_photos_takeout_helper\__main__.py", line 159, in for_all_files_recursive
+    file_function(file)
+  File "C:\Users\7towa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\google_photos_takeout_helper\__main__.py", line 700, in <lambda>
+    file_function=lambda f: _walk_with_tqdm(fix_metadata(f), _metadata_bar),
+  File "C:\Users\7towa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\google_photos_takeout_helper\__main__.py", line 613, in fix_metadata
+    set_file_geo_data(file, google_json)
+  File "C:\Users\7towa\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\google_photos_takeout_helper\__main__.py", line 524, in set_file_geo_data
+    longitude = _str_to_float(json['geoDataExif']['longitude'])
+
+KeyError: 'geoDataExif'
