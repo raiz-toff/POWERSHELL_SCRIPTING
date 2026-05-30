@@ -1,4 +1,3 @@
-
 ```markdown
 # IT Management Dashboard
 
@@ -64,7 +63,8 @@ The **IT Management Dashboard** is a Windows-based GUI application designed for 
 2. Run the script with PowerShell:
    ```powershell
    powershell -ExecutionPolicy Bypass -File ITManagementDashboard.ps1
-   ```
+```
+
 3. The main dashboard will open, providing access to all features.
 
 ---
@@ -72,6 +72,7 @@ The **IT Management Dashboard** is a Windows-based GUI application designed for 
 ## Configuration
 
 - **Theme Settings**:
+
   - Modify the `$Theme` variable to adjust the application colors:
     ```powershell
     $Theme = @{
@@ -82,8 +83,8 @@ The **IT Management Dashboard** is a Windows-based GUI application designed for 
         HeaderFontColor   = [System.Drawing.Color]::DarkOrange        # Header Text
     }
     ```
-
 - **Font Settings**:
+
   - Adjust the `$Fonts` variable for headers, labels, and buttons:
     ```powershell
     $Fonts = @{
@@ -97,38 +98,42 @@ The **IT Management Dashboard** is a Windows-based GUI application designed for 
 
 ## Available Modules and Forms
 
-| Feature                          | Function                  |
-|----------------------------------|---------------------------|
-| User Account Management          | `UserAccountManagement`   |
-| Login Attempts Tracking          | `Show-LoginAttempts`      |
-| Roles Management                 | `Show-RolesForm`          |
-| Notifications                    | `Show-NotificationsForm`  |
-| Password Expiration Alerts       | `PasswordExpirationAlerts`|
-| Patch Management                 | `PatchManagement`         |
-| System Health Checks             | `SystemHealthChecks`      |
-| Backup Automation                | `BackupAutomation`        |
-| Reporting and Logging            | `ReportingAndLogging`     |
+| Feature                    | Function                     |
+| -------------------------- | ---------------------------- |
+| User Account Management    | `UserAccountManagement`    |
+| Login Attempts Tracking    | `Show-LoginAttempts`       |
+| Roles Management           | `Show-RolesForm`           |
+| Notifications              | `Show-NotificationsForm`   |
+| Password Expiration Alerts | `PasswordExpirationAlerts` |
+| Patch Management           | `PatchManagement`          |
+| System Health Checks       | `SystemHealthChecks`       |
+| Backup Automation          | `BackupAutomation`         |
+| Reporting and Logging      | `ReportingAndLogging`      |
 
 ---
 
 ## Usage Instructions
 
 ### User Account Management
+
 1. Click the "User Account Management" button on the main dashboard.
 2. Perform operations like adding, enabling, or deleting users.
 3. Use the search functionality to find specific users.
 
 ### Login Tracking
+
 1. Click the "Track Login Attempts" button.
 2. Enter a username or filter criteria to fetch logs.
 3. Export logs to a CSV file for further analysis.
 
 ### Notifications
+
 1. Click "Send Notifications".
 2. Enter the username and message.
 3. Choose to send as a desktop notification, email, or log the message.
 
 ### Additional Tools
+
 - Use buttons on the main dashboard for other features like health checks, patch management, and backups.
 
 ---
@@ -147,6 +152,7 @@ The **IT Management Dashboard** is a Windows-based GUI application designed for 
 ## Contributing
 
 Feel free to contribute by:
+
 - Reporting bugs.
 - Suggesting new features.
 - Submitting pull requests.
@@ -156,4 +162,3 @@ Feel free to contribute by:
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
-```
