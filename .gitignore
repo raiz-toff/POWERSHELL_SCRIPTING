@@ -1,0 +1,18 @@
+# Windows System Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# PowerShell & Script Output
+*.log
+**/Output/
+AdminPanel/Modules/Output/
+AdminPanel/Output/
+
+# IDE Configuration Files
+.vscode/
+.vs/
+.idea/
+*.suo
+*.user
+*.sln.docstates

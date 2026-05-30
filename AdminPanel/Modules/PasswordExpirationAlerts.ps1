@@ -1,4 +1,11 @@
-
+﻿# Ensure shared helpers and styling are loaded if run standalone
+if ($null -eq $Theme) {
+    $helperPath = Join-Path $PSScriptRoot "SharedHelpers.ps1"
+    if (-not (Test-Path $helperPath)) { $helperPath = Join-Path $PSScriptRoot "..\SharedHelpers.ps1" }
+    if (Test-Path $helperPath) { . $helperPath }
+}
+function PasswordExpirationAlerts {
+    
 
 # Load required assemblies
 Add-Type -AssemblyName System.Windows.Forms
@@ -11,45 +18,6 @@ $form.Size = New-Object System.Drawing.Size(500, 400)
 $form.StartPosition = "CenterScreen"
 $form.BackColor = "LightGray"
 
-# Add Title Label
-$lblTitle = New-Object System.Windows.Forms.Label
-$lblTitle.Text = "AD Management Tool"
-$lblTitle.Font = New-Object System.Drawing.Font("Segoe UI", 16, [System.Drawing.FontStyle]::Bold)
-$lblTitle.ForeColor = "DarkOrange"
-$lblTitle.AutoSize = $true
-$lblTitle.Location = New-Object System.Drawing.Point(($form.Width - 300) / 2, 20)
-$form.Controls.Add($lblTitle)
-
-# Group Buttons
-$groups = @(
-    @{ Name = "Manage Password Expirations"; Action = { Manage-PasswordExpirations } }
-    @{ Name = "Manage Users"; Action = { Manage-Users } }
-    @{ Name = "Manage Policies & Notifications"; Action = { Manage-PoliciesAndNotifications } }
-    @{ Name = "View Reports & Audits"; Action = { View-ReportsAndAudits } }
-)
-
-$yPos = 80
-foreach ($group in $groups) {
-    $button = New-Object System.Windows.Forms.Button
-    $button.Text = $group.Name
-    $button.Location = New-Object System.Drawing.Point(50, $yPos)
-    $button.Size = New-Object System.Drawing.Size(400, 40)
-    $button.BackColor = "SteelBlue"
-    $button.ForeColor = "White"
-    $button.Tag = $group.Action
-    $form.Controls.Add($button)
-
-    # Button Event Handler
-    $button.Add_Click({
-        $action = $button.Tag
-        & $action
-    })
-
-    $yPos += 60
-}
-
-# Show the Main Form
-$form.ShowDialog()
 
 # Group 1: Manage Password Expirations
 Function Manage-PasswordExpirations {
@@ -602,7 +570,7 @@ Lockout Threshold: $($policy.LockoutThreshold)
 
 
 # Group 4: View Reports and Audits
-Function Manage-ReportsAndAudits {
+Function View-ReportsAndAudits {
     # Load required assemblies
     Add-Type -AssemblyName System.Windows.Forms
     Add-Type -AssemblyName System.Drawing
@@ -746,3 +714,52 @@ Function Manage-ReportsAndAudits {
     $form.ShowDialog()
 }
 
+
+    
+
+# Add Title Label
+$lblTitle = New-Object System.Windows.Forms.Label
+$lblTitle.Text = "AD Management Tool"
+$lblTitle.Font = New-Object System.Drawing.Font("Segoe UI", 16, [System.Drawing.FontStyle]::Bold)
+$lblTitle.ForeColor = "DarkOrange"
+$lblTitle.AutoSize = $true
+$lblTitle.Location = New-Object System.Drawing.Point(($form.Width - 300) / 2, 20)
+$form.Controls.Add($lblTitle)
+
+# Group Buttons
+$groups = @(
+    @{ Name = "Manage Password Expirations"; Action = { Manage-PasswordExpirations } }
+    @{ Name = "Manage Users"; Action = { Manage-Users } }
+    @{ Name = "Manage Policies & Notifications"; Action = { Manage-PoliciesAndNotifications } }
+    @{ Name = "View Reports & Audits"; Action = { View-ReportsAndAudits } }
+)
+
+$yPos = 80
+foreach ($group in $groups) {
+    $button = New-Object System.Windows.Forms.Button
+    $button.Text = $group.Name
+    $button.Location = New-Object System.Drawing.Point(50, $yPos)
+    $button.Size = New-Object System.Drawing.Size(400, 40)
+    $button.BackColor = "SteelBlue"
+    $button.ForeColor = "White"
+    $button.Tag = $group.Action
+    $form.Controls.Add($button)
+
+    # Button Event Handler
+    $button.Add_Click({
+        $action = $button.Tag
+        & $action
+    })
+
+    $yPos += 60
+}
+
+# Show the Main Form
+$form.ShowDialog()
+
+}
+
+# Run the function if executed directly (standalone)
+if ($MyInvocation.InvocationName -ne '.') {
+    PasswordExpirationAlerts
+}

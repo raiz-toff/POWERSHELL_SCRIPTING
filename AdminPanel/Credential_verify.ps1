@@ -28,9 +28,10 @@ Function Verify-AdminCredentials {
 
         # Check ExitCode
         if ($result.ExitCode -eq 0) {
-            Write-Host "Authentication successful. Access granted." -ForegroundColor Green
-            # Call the external script file main.ps1 This varies where the files are saved. 
-            & "C:\Users\Administrator\Desktop\main.ps1"
+            Write-Host "Authentication successful. Access granted. Launching Dashboard..." -ForegroundColor Green
+            $mainPath = Join-Path $PSScriptRoot "Main.ps1"
+            # Start the main dashboard in a new window under the elevated credentials
+            Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$mainPath`"" -Credential $credentials
         } else {
             Write-Host "Authentication failed. Access denied." -ForegroundColor Red
         }

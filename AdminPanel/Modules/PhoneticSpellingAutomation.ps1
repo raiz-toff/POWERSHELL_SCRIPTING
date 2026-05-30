@@ -1,3 +1,9 @@
+﻿# Ensure shared helpers and styling are loaded if run standalone
+if ($null -eq $Theme) {
+    $helperPath = Join-Path $PSScriptRoot "SharedHelpers.ps1"
+    if (-not (Test-Path $helperPath)) { $helperPath = Join-Path $PSScriptRoot "..\SharedHelpers.ps1" }
+    if (Test-Path $helperPath) { . $helperPath }
+}
 Function PhoneticSpellingAutomation {
     # Load required assemblies
     Add-Type -AssemblyName System.Windows.Forms
@@ -76,10 +82,11 @@ Function Convert-TextToPhonetics {
 
 # Function to Export Phonetics to File
 Function Export-PhoneticsToFile {
-    $filePath = "C:\Phonetics\Phonetics.txt"
-    if (-not (Test-Path "C:\Phonetics")) {
-        New-Item -ItemType Directory -Path "C:\Phonetics"
+    $dirPath = Join-Path $PSScriptRoot "Output"
+    if (-not (Test-Path $dirPath)) {
+        New-Item -ItemType Directory -Path $dirPath -ErrorAction SilentlyContinue | Out-Null
     }
+    $filePath = Join-Path $dirPath "Phonetics.txt"
     $content = "Sample phonetic data exported to this file."
     $content | Set-Content -Path $filePath
     [System.Windows.Forms.MessageBox]::Show("Phonetics exported to $filePath", "Export Complete")
@@ -148,11 +155,11 @@ Function Generate-IPATranscriptions {
     if (-not [string]::IsNullOrWhiteSpace($inputText)) {
         # Example IPA transcription logic (simple simulation)
         $ipaMapping = @{
-            "a" = "æ"; "b" = "b"; "c" = "k"; "d" = "d"; "e" = "ɛ";
-            "f" = "f"; "g" = "ɡ"; "h" = "h"; "i" = "ɪ"; "j" = "ʤ";
-            "k" = "k"; "l" = "l"; "m" = "m"; "n" = "n"; "o" = "ɒ";
+            "a" = "Ã¦"; "b" = "b"; "c" = "k"; "d" = "d"; "e" = "É›";
+            "f" = "f"; "g" = "É¡"; "h" = "h"; "i" = "Éª"; "j" = "Ê¤";
+            "k" = "k"; "l" = "l"; "m" = "m"; "n" = "n"; "o" = "É’";
             "p" = "p"; "q" = "kw"; "r" = "r"; "s" = "s"; "t" = "t";
-            "u" = "ʌ"; "v" = "v"; "w" = "w"; "x" = "ks"; "y" = "j";
+            "u" = "ÊŒ"; "v" = "v"; "w" = "w"; "x" = "ks"; "y" = "j";
             "z" = "z"
         }
 
@@ -163,3 +170,10 @@ Function Generate-IPATranscriptions {
     }
 }
 
+
+
+
+# Run the function if executed directly (standalone)
+if ($MyInvocation.InvocationName -ne '.') {
+    PhoneticSpellingAutomation
+}

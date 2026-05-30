@@ -1,3 +1,9 @@
+﻿# Ensure shared helpers and styling are loaded if run standalone
+if ($null -eq $Theme) {
+    $helperPath = Join-Path $PSScriptRoot "SharedHelpers.ps1"
+    if (-not (Test-Path $helperPath)) { $helperPath = Join-Path $PSScriptRoot "..\SharedHelpers.ps1" }
+    if (Test-Path $helperPath) { . $helperPath }
+}
 Function SystemHealthChecks {
     # Load required assemblies
     Add-Type -AssemblyName System.Windows.Forms
@@ -16,7 +22,6 @@ Function SystemHealthChecks {
     $lblTitle.Font = New-Object System.Drawing.Font("Segoe UI", 16, [System.Drawing.FontStyle]::Bold)
     $lblTitle.ForeColor = "DarkOrange"
     $lblTitle.AutoSize = $true
-    $lblTitle.Location = New-Object System.Drawing.Point(([int]$form.Width - 300) / 2, 20)
     $form.Controls.Add($lblTitle)
 
     # Output Box
@@ -124,4 +129,9 @@ Function SystemHealthChecks {
 
     # Show the form
     $form.ShowDialog()
+}
+
+# Run the function if executed directly (standalone)
+if ($MyInvocation.InvocationName -ne '.') {
+    SystemHealthChecks
 }

@@ -1,4 +1,9 @@
-
+﻿# Ensure shared helpers and styling are loaded if run standalone
+if ($null -eq $Theme) {
+    $helperPath = Join-Path $PSScriptRoot "SharedHelpers.ps1"
+    if (-not (Test-Path $helperPath)) { $helperPath = Join-Path $PSScriptRoot "..\SharedHelpers.ps1" }
+    if (Test-Path $helperPath) { . $helperPath }
+}
 function UserAccountManagement {
    
     Function Create-AdminForm {
@@ -840,4 +845,9 @@ $logEventButton.Add_Click({
 # Start the GUI Application
 Create-AdminForm
 
+}
+
+# Run the function if executed directly (standalone)
+if ($MyInvocation.InvocationName -ne '.') {
+    UserAccountManagement
 }

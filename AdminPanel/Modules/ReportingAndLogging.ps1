@@ -1,4 +1,12 @@
-Function ReportingAndLogging {
+﻿# Ensure shared helpers and styling are loaded if run standalone
+if ($null -eq $Theme) {
+    $helperPath = Join-Path $PSScriptRoot "SharedHelpers.ps1"
+    if (-not (Test-Path $helperPath)) { $helperPath = Join-Path $PSScriptRoot "..\SharedHelpers.ps1" }
+    if (Test-Path $helperPath) { . $helperPath }
+}
+function ReportingAndLogging {
+
+    
     # Load required assemblies
     Add-Type -AssemblyName System.Windows.Forms
     Add-Type -AssemblyName System.Drawing
@@ -41,14 +49,13 @@ Function ReportingAndLogging {
 
     # Show the form
     $form.ShowDialog()
-}
-
-# Logic for Generating Reports
+    # Logic for Generating Reports
 Function Generate-Report {
-    $reportFile = "C:\Reports\SystemReport.txt"
-    if (-not (Test-Path "C:\Reports")) {
-        New-Item -ItemType Directory -Path "C:\Reports"
+    $dirPath = Join-Path $PSScriptRoot "Output"
+    if (-not (Test-Path $dirPath)) {
+        New-Item -ItemType Directory -Path $dirPath -ErrorAction SilentlyContinue | Out-Null
     }
+    $reportFile = Join-Path $dirPath "SystemReport.txt"
 
     # Create a sample system report
     $reportContent = @"
@@ -66,14 +73,25 @@ Uptime: $(((Get-Date) - (Get-CimInstance -ClassName Win32_OperatingSystem).LastB
 
 # Logic for Exporting Logs
 Function Export-Logs {
-    $logFile = "C:\Reports\SystemLogs.txt"
-    if (-not (Test-Path "C:\Reports")) {
-        New-Item -ItemType Directory -Path "C:\Reports"
+    $dirPath = Join-Path $PSScriptRoot "Output"
+    if (-not (Test-Path $dirPath)) {
+        New-Item -ItemType Directory -Path $dirPath -ErrorAction SilentlyContinue | Out-Null
     }
+    $logFile = Join-Path $dirPath "SystemLogs.txt"
 
     # Export logs (e.g., latest system logs)
     Get-EventLog -LogName System -Newest 100 | Out-File -FilePath $logFile
     [System.Windows.Forms.MessageBox]::Show("System logs exported successfully to $logFile", "Logs Exported")
 }
+
+
+}
+
+# Run the function if executed directly (standalone)
+if ($MyInvocation.InvocationName -ne '.') {
+    ReportingAndLogging
+}
+
+
 
 
