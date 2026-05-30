@@ -32,10 +32,12 @@ Function Verify-AdminCredentials {
             $mainPath = Join-Path $PSScriptRoot "Main.ps1"
             # Start the main dashboard in a new window under the elevated credentials
             Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$mainPath`"" -Credential $credentials
-        } else {
+        }
+        else {
             Write-Host "Authentication failed. Access denied." -ForegroundColor Red
         }
-    } catch {
+    }
+    catch {
         Write-Host "An error occurred during authentication:" -ForegroundColor Red
         Write-Host $_.Exception.Message -ForegroundColor Yellow
         Write-Host $_.Exception.StackTrace -ForegroundColor Gray
@@ -44,6 +46,7 @@ Function Verify-AdminCredentials {
 
 # Call the Verify-AdminCredentials function at the start of the script
 Verify-AdminCredentials
+
 
 
 
