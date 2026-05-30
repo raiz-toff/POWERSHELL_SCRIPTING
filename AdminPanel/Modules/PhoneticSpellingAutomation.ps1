@@ -1,9 +1,10 @@
-﻿# Ensure shared helpers and styling are loaded if run standalone
+# Ensure shared helpers and styling are loaded if run standalone
 if ($null -eq $Theme) {
     $helperPath = Join-Path $PSScriptRoot "SharedHelpers.ps1"
     if (-not (Test-Path $helperPath)) { $helperPath = Join-Path $PSScriptRoot "..\SharedHelpers.ps1" }
     if (Test-Path $helperPath) { . $helperPath }
 }
+
 Function PhoneticSpellingAutomation {
     # Load required assemblies
     Add-Type -AssemblyName System.Windows.Forms
@@ -52,7 +53,7 @@ Function PhoneticSpellingAutomation {
     $btnIPA.Size = New-Object System.Drawing.Size(400, 40)
     $btnIPA.BackColor = "SteelBlue"
     $btnIPA.ForeColor = "White"
-    $btnIPA.Add_Click({ Generate-IPATranscriptions })
+    $btnIPA.Add_Click({ Invoke-IPATranscriptions })
     $form.Controls.Add($btnIPA)
 
     # Show the form
@@ -148,18 +149,17 @@ Function Show-InputDialog {
     }
 }
 
-
 # Function to Generate IPA Transcriptions
-Function Generate-IPATranscriptions {
+Function Invoke-IPATranscriptions {
     $inputText = Show-InputDialog "Enter text to generate IPA transcriptions:" "IPA Transcription"
     if (-not [string]::IsNullOrWhiteSpace($inputText)) {
         # Example IPA transcription logic (simple simulation)
         $ipaMapping = @{
-            "a" = "Ã¦"; "b" = "b"; "c" = "k"; "d" = "d"; "e" = "É›";
-            "f" = "f"; "g" = "É¡"; "h" = "h"; "i" = "Éª"; "j" = "Ê¤";
-            "k" = "k"; "l" = "l"; "m" = "m"; "n" = "n"; "o" = "É’";
+            "a" = "æ"; "b" = "b"; "c" = "k"; "d" = "d"; "e" = "ɛ";
+            "f" = "f"; "g" = "ɡ"; "h" = "h"; "i" = "ɪ"; "j" = "ʤ";
+            "k" = "k"; "l" = "l"; "m" = "m"; "n" = "n"; "o" = "ɒ";
             "p" = "p"; "q" = "kw"; "r" = "r"; "s" = "s"; "t" = "t";
-            "u" = "ÊŒ"; "v" = "v"; "w" = "w"; "x" = "ks"; "y" = "j";
+            "u" = "ʌ"; "v" = "v"; "w" = "w"; "x" = "ks"; "y" = "j";
             "z" = "z"
         }
 
@@ -169,9 +169,6 @@ Function Generate-IPATranscriptions {
         [System.Windows.Forms.MessageBox]::Show("No input provided.", "Error")
     }
 }
-
-
-
 
 # Run the function if executed directly (standalone)
 if ($MyInvocation.InvocationName -ne '.') {
