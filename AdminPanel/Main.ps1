@@ -1,7 +1,7 @@
 # main.ps1 - Streamlined IT Management Dashboard entry point
 # Dynamically loads UI configuration and modules
 
-# Ensure we run in a single-threaded apartment mode (required for Forms)
+# Ensure we run in a single threaded mode (required for Forms) 
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
